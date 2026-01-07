@@ -488,10 +488,11 @@ def get_tools():
                     },
                     "idx_cl_code": {
                         "type": "string",
-                        "description": "지표분류코드 (선택): M210000=수익성, M220000=안정성, M230000=성장성, M240000=활동성"
+                        "enum": ["M210000", "M220000", "M230000", "M240000"],
+                        "description": "지표분류코드 (필수): M210000=수익성, M220000=안정성, M230000=성장성, M240000=활동성"
                     },
                 },
-                "required": ["corp_code", "bsns_year", "reprt_code"],
+                "required": ["corp_code", "bsns_year", "reprt_code", "idx_cl_code"],
             },
         },
         # 📋 대량보유 상황보고 (NEW!)
@@ -744,14 +745,12 @@ def call_tool(name: str, arguments: dict) -> dict:
         
         # 📊 주요 재무지표 (NEW!)
         elif name == "get_financial_index":
-            params = {
+            return call_dart_api("fnlttSinglIndx.json", {
                 "corp_code": arguments["corp_code"],
                 "bsns_year": arguments["bsns_year"],
                 "reprt_code": arguments["reprt_code"],
-            }
-            if arguments.get("idx_cl_code"):
-                params["idx_cl_code"] = arguments["idx_cl_code"]
-            return call_dart_api("fnlttSinglIndx.json", params)
+                "idx_cl_code": arguments["idx_cl_code"],
+            })
         
         # 📋 대량보유 상황보고 (NEW!)
         elif name == "get_major_stock":
