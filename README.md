@@ -12,9 +12,9 @@
 
 ## 🎬 시연 영상
 
-[![YouTube](https://img.shields.io/badge/▶_시연_영상_보기-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=7U9Go4PiFxA)
+[![OpenDART MCP 시연](https://img.youtube.com/vi/7U9Go4PiFxA/0.jpg)](https://www.youtube.com/watch?v=7U9Go4PiFxA)
 
-> 💡 버튼을 클릭하면 YouTube에서 시연 영상을 확인할 수 있습니다!
+> 🎥 클릭하면 YouTube에서 시연 영상을 볼 수 있습니다!
 
 ## ✨ 주요 기능 (14개 도구)
 
