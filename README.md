@@ -10,6 +10,14 @@
 >
 > 📅 **지원 데이터**: 2023년 ~ 2025년 최신 (3분기) 모두 조회 가능!
 
+## 🎬 시연 영상
+
+<a href="video/dart-mcp%20시연-0117.mp4">
+  <img src="https://img.shields.io/badge/▶%20시연%20영상%20보기-MP4-red?style=for-the-badge&logo=youtube" alt="시연 영상 보기"/>
+</a>
+
+> 💡 클릭하면 시연 영상을 확인할 수 있습니다!
+
 ## ✨ 주요 기능 (14개 도구)
 
 ### 🔍 기업 검색
