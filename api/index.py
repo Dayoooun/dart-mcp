@@ -190,6 +190,109 @@ GET_SHAREHOLDERS_DESC = """기업 최대주주 현황 조회
 → find_company 도구를 먼저 사용하세요!
 """ + USAGE_GUIDE
 
+GET_FINANCIAL_INDEX_DESC = """기업 주요 재무지표 조회 (ROE, ROA, 부채비율 등)
+
+### 반환 정보 ⭐
+- ROE (자기자본이익률)
+- ROA (총자산이익률)
+- 부채비율
+- 유동비율
+- 당좌비율
+- 영업이익률
+- 순이익률
+- EPS (주당순이익)
+- BPS (주당순자산)
+- PER, PBR (주가배수)
+
+### 파라미터
+- corp_code: 기업 고유번호 (필수)
+- bsns_year: 사업연도 (필수)
+- reprt_code: 보고서코드 (필수)
+- idx_cl_code: 지표분류코드 (선택)
+  - M210000: 수익성지표
+  - M220000: 안정성지표
+  - M230000: 성장성지표
+  - M240000: 활동성지표
+
+### 💡 corp_code를 모르면?
+→ find_company 도구를 먼저 사용하세요!
+""" + USAGE_GUIDE
+
+GET_MAJOR_STOCK_DESC = """대량보유 상황보고 조회 (5%룰)
+
+### 반환 정보
+- 보고자명
+- 보유주식수
+- 보유비율 (%)
+- 보고사유 (취득/처분/변동)
+- 변동일자
+
+### 용도
+- 5% 이상 주주의 지분 변동 추적
+- 기관/외국인 대량 매수/매도 확인
+- 경영권 분쟁 신호 감지
+
+### 💡 corp_code를 모르면?
+→ find_company 도구를 먼저 사용하세요!
+""" + USAGE_GUIDE
+
+GET_EXECUTIVE_STOCK_DESC = """임원·주요주주 소유보고 조회
+
+### 반환 정보
+- 보고자명
+- 직위 (대표이사, 이사 등)
+- 관계 (본인/특수관계인)
+- 보유주식수
+- 보유비율 (%)
+- 변동사유
+
+### 용도
+- 임원 지분 변동 추적
+- 내부자 매매 동향 확인
+- 경영진 신뢰도 판단
+
+### 💡 corp_code를 모르면?
+→ find_company 도구를 먼저 사용하세요!
+""" + USAGE_GUIDE
+
+GET_CAPITAL_CHANGE_DESC = """증자(감자) 현황 조회
+
+### 반환 정보
+- 증자/감자 구분
+- 발행주식수
+- 주당 발행가액
+- 자본금 변동액
+- 변동일자
+- 변동사유
+
+### 용도
+- 기업 자본 구조 변화 확인
+- 유상증자/무상증자 이력
+- 감자로 인한 주주가치 변동
+
+### 💡 corp_code를 모르면?
+→ find_company 도구를 먼저 사용하세요!
+""" + USAGE_GUIDE
+
+GET_TREASURY_STOCK_DESC = """자기주식 취득 및 처분 현황 조회
+
+### 반환 정보
+- 취득/처분 구분
+- 주식수
+- 취득/처분 가액
+- 취득/처분 목적
+- 기간
+- 비고
+
+### 용도
+- 자사주 매입 규모 확인
+- 주주환원 정책 분석
+- 자사주 소각 현황
+
+### 💡 corp_code를 모르면?
+→ find_company 도구를 먼저 사용하세요!
+""" + USAGE_GUIDE
+
 
 def call_dart_api(endpoint: str, params: dict) -> dict:
     """OpenDART API 호출"""
@@ -355,6 +458,88 @@ def get_tools():
         {
             "name": "get_largest_shareholders",
             "description": GET_SHAREHOLDERS_DESC,
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "corp_code": {"type": "string", "description": "기업 고유번호 (find_company로 검색)"},
+                    "bsns_year": {"type": "string", "description": "사업연도 (예: 2023)"},
+                    "reprt_code": {
+                        "type": "string",
+                        "enum": ["11011", "11012", "11013", "11014"],
+                        "description": "11011=사업보고서(권장)"
+                    },
+                },
+                "required": ["corp_code", "bsns_year", "reprt_code"],
+            },
+        },
+        # 📊 주요 재무지표 (NEW!)
+        {
+            "name": "get_financial_index",
+            "description": GET_FINANCIAL_INDEX_DESC,
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "corp_code": {"type": "string", "description": "기업 고유번호 (find_company로 검색)"},
+                    "bsns_year": {"type": "string", "description": "사업연도 (예: 2023)"},
+                    "reprt_code": {
+                        "type": "string",
+                        "enum": ["11011", "11012", "11013", "11014"],
+                        "description": "11011=사업보고서, 11012=반기, 11013=1분기, 11014=3분기"
+                    },
+                    "idx_cl_code": {
+                        "type": "string",
+                        "description": "지표분류코드 (선택): M210000=수익성, M220000=안정성, M230000=성장성, M240000=활동성"
+                    },
+                },
+                "required": ["corp_code", "bsns_year", "reprt_code"],
+            },
+        },
+        # 📋 대량보유 상황보고 (NEW!)
+        {
+            "name": "get_major_stock",
+            "description": GET_MAJOR_STOCK_DESC,
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "corp_code": {"type": "string", "description": "기업 고유번호 (find_company로 검색)"},
+                },
+                "required": ["corp_code"],
+            },
+        },
+        # 👔 임원·주요주주 소유보고 (NEW!)
+        {
+            "name": "get_executive_stock",
+            "description": GET_EXECUTIVE_STOCK_DESC,
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "corp_code": {"type": "string", "description": "기업 고유번호 (find_company로 검색)"},
+                },
+                "required": ["corp_code"],
+            },
+        },
+        # 💰 증자(감자) 현황 (NEW!)
+        {
+            "name": "get_capital_change",
+            "description": GET_CAPITAL_CHANGE_DESC,
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "corp_code": {"type": "string", "description": "기업 고유번호 (find_company로 검색)"},
+                    "bsns_year": {"type": "string", "description": "사업연도 (예: 2023)"},
+                    "reprt_code": {
+                        "type": "string",
+                        "enum": ["11011", "11012", "11013", "11014"],
+                        "description": "11011=사업보고서(권장)"
+                    },
+                },
+                "required": ["corp_code", "bsns_year", "reprt_code"],
+            },
+        },
+        # 📈 자기주식 현황 (NEW!)
+        {
+            "name": "get_treasury_stock",
+            "description": GET_TREASURY_STOCK_DESC,
             "inputSchema": {
                 "type": "object",
                 "properties": {
@@ -552,6 +737,45 @@ def call_tool(name: str, arguments: dict) -> dict:
         # 📈 최대주주
         elif name == "get_largest_shareholders":
             return call_dart_api("hyslrSttus.json", {
+                "corp_code": arguments["corp_code"],
+                "bsns_year": arguments["bsns_year"],
+                "reprt_code": arguments["reprt_code"],
+            })
+        
+        # 📊 주요 재무지표 (NEW!)
+        elif name == "get_financial_index":
+            params = {
+                "corp_code": arguments["corp_code"],
+                "bsns_year": arguments["bsns_year"],
+                "reprt_code": arguments["reprt_code"],
+            }
+            if arguments.get("idx_cl_code"):
+                params["idx_cl_code"] = arguments["idx_cl_code"]
+            return call_dart_api("fnlttSinglIndx.json", params)
+        
+        # 📋 대량보유 상황보고 (NEW!)
+        elif name == "get_major_stock":
+            return call_dart_api("majorstock.json", {
+                "corp_code": arguments["corp_code"],
+            })
+        
+        # 👔 임원·주요주주 소유보고 (NEW!)
+        elif name == "get_executive_stock":
+            return call_dart_api("elestock.json", {
+                "corp_code": arguments["corp_code"],
+            })
+        
+        # 💰 증자(감자) 현황 (NEW!)
+        elif name == "get_capital_change":
+            return call_dart_api("irdsSttus.json", {
+                "corp_code": arguments["corp_code"],
+                "bsns_year": arguments["bsns_year"],
+                "reprt_code": arguments["reprt_code"],
+            })
+        
+        # 📈 자기주식 현황 (NEW!)
+        elif name == "get_treasury_stock":
+            return call_dart_api("tesstkAcqsDspsSttus.json", {
                 "corp_code": arguments["corp_code"],
                 "bsns_year": arguments["bsns_year"],
                 "reprt_code": arguments["reprt_code"],
