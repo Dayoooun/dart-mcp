@@ -12,7 +12,9 @@
 
 ## 🎬 시연 영상
 
-[![시연 영상](https://img.youtube.com/vi/7U9Go4PiFxA/maxresdefault.jpg)](https://youtu.be/7U9Go4PiFxA)
+<a href="https://youtu.be/7U9Go4PiFxA">
+  <img src="https://img.youtube.com/vi/7U9Go4PiFxA/hqdefault.jpg" alt="시연 영상" width="600"/>
+</a>
 
 > 💡 이미지를 클릭하면 YouTube에서 시연 영상을 확인할 수 있습니다!
 
