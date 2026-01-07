@@ -12,11 +12,9 @@
 
 ## 🎬 시연 영상
 
-<a href="https://youtu.be/7U9Go4PiFxA">
-  <img src="https://img.youtube.com/vi/7U9Go4PiFxA/hqdefault.jpg" alt="시연 영상" width="600"/>
-</a>
+[![YouTube](https://img.shields.io/badge/▶_시연_영상_보기-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=7U9Go4PiFxA)
 
-> 💡 이미지를 클릭하면 YouTube에서 시연 영상을 확인할 수 있습니다!
+> 💡 버튼을 클릭하면 YouTube에서 시연 영상을 확인할 수 있습니다!
 
 ## ✨ 주요 기능 (14개 도구)
 
