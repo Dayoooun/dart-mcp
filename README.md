@@ -31,7 +31,7 @@
 **별도 설정 없이 바로 사용 가능!**
 
 ```
-https://dart-mcp.vercel.app/sse
+https://dart-mcp-self.vercel.app/sse
 ```
 
 MCP 클라이언트에 위 URL만 추가하면 끝!
@@ -66,7 +66,7 @@ opendart-mcp
   "mcpServers": {
     "opendart": {
       "type": "http",
-      "url": "https://dart-mcp.vercel.app/sse"
+      "url": "https://dart-mcp-self.vercel.app/sse"
     }
   }
 }
@@ -80,7 +80,7 @@ opendart-mcp
 {
   "mcpServers": {
     "opendart": {
-      "url": "https://dart-mcp.vercel.app/sse"
+      "url": "https://dart-mcp-self.vercel.app/sse"
     }
   }
 }
