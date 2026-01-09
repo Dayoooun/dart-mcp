@@ -74,6 +74,7 @@ class TestMultiCompanyAccountResponse:
             "message": "정상",
             "list": [
                 {
+                    "rcept_no": "20240315000123",
                     "corp_code": "00126380",
                     "corp_name": "삼성전자",
                     "stock_code": "005930",
