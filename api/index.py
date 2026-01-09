@@ -798,7 +798,7 @@ def handle_mcp_message(message: dict) -> dict:
     try:
         if method == "initialize":
             response["result"] = {
-                "protocolVersion": "2024-11-05",
+                "protocolVersion": "2025-03-26",
                 "capabilities": {"tools": {"listChanged": False}},
                 "serverInfo": {"name": "opendart-mcp", "version": "0.2.0"},
             }
